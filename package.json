@@ -1,0 +1,20 @@
+{
+  "name": "dangTalk",
+  "productName": "dangTalk",
+  "description": "开源企业im",
+  "homepage": "http://www.wex5.com/im/",
+  "version": "5.3.5",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . --dev",
+    "buildmac": "electron-packager . 铛铛 --icon=assets/im --platform=darwin  --arch=all --app-bundle-id=com.justep.im --out=dist --version=1.2.5",
+    "buildwin": "electron-packager . 铛铛 --icon=assets/im --platform=win32  --arch=all --app-bundle-id=com.justep.im --out=dist --version=1.2.5",
+    "buildlinux": "electron-packager . 铛铛 --icon=assets/im --platform=linux  --arch=all --app-bundle-id=com.justep.im --out=dist --version=1.2.5"
+  },
+  "dependencies": {
+    "electron-window-state": "^3.0.3",
+    "node-notifier": "^4.6.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
+}

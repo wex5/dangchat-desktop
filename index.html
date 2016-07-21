@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+    <!--
+       这个页面是为了免去用户体验产品时候要打包自己app的麻烦而存在，正常情况不需要这个页面，
+       直接在main.js中配置上服务器地址就可以了。
+    -->
+
+    <body>
+    <div id="inputArea" style="display: none;">
+        <h2>本客户端app是用来做体验使用，默认访问本机服务，如果需要在其他电脑体验本app请输入服务器ip地址</h2>
+        <input type="text" id="ipAddress" placeholder="服务器ip/域名(127.0.0.1/wex5.com)" style="width:300px;" />
+        <button type="button" id="submit">确定</button>
+    </div>
+    <script>
+        var defaultServerIp = localStorage.getItem("electronStartURL") || "127.0.0.1";
+        document.querySelector("#submit").addEventListener("click",function(){
+            var serverIp = document.querySelector("#ipAddress").value;
+            checkIp(serverIp);
+        });
+        function checkIp(ip){
+            var url = "https://" + ip + ":8080/x5/UI2/chat/bex5/pc/index.w";
+            try{
+                var xhr = new XMLHttpRequest();
+                xhr.timeout = 2000;
+                xhr.open('GET', url);
+                xhr.send(null);
+                xhr.onload = function () {
+                    localStorage.setItem("electronStartURL",ip);
+                    location.href = url;
+                };
+                xhr.onerror = function () {
+                    showInputArea();
+                };
+                xhr.ontimeout = function (e) {
+                    showInputArea();
+                };
+            }catch(e){
+                showInputArea();
+            }
+        }
+        function showInputArea(){
+            document.querySelector("#inputArea").style.display="block";
+        }
+        checkIp(defaultServerIp);
+    </script>
+
+    </body>
+</html>
+
